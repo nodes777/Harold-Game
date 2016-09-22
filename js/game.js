@@ -11,6 +11,8 @@ var height = 550;
 canvas.width = width;
 canvas.height = height;
 var context = canvas.getContext('2d');
+var haroldImg = new Image();
+haroldImg.src = 'img/arrow.png';
 
 window.onload = function() {
     document.getElementById("canvas").appendChild(canvas);
@@ -33,6 +35,7 @@ var render = function() {
     context.fillRect(0, 0, width, height);
     player.render();
 };
+
 /*Create Paddle Class*/
 function Paddle(x, y, width, height) {
     this.x = x;
