@@ -12,7 +12,7 @@ canvas.width = width;
 canvas.height = height;
 var context = canvas.getContext('2d');
 var haroldImg = new Image();
-haroldImg.src = 'img/arrow.png';
+haroldImg.src = 'img/harold.png';
 
 window.onload = function() {
     document.getElementById("canvas").appendChild(canvas);
@@ -44,12 +44,10 @@ function Paddle(x, y, width, height) {
     this.height = height;
     this.x_speed = 0;
     this.y_speed = 0;
-    this.powerUpped = false;
 }
 /*Create Paddle methods that are shared across both players*/
 Paddle.prototype.render = function() {
-    context.fillStyle = "#0000FF";
-    context.fillRect(this.x, this.y, this.width, this.height);
+    context.drawImage(haroldImg, player.paddle.x, player.paddle.y);
 };
 
 Paddle.prototype.move = function(x, y) {
@@ -79,7 +77,6 @@ Paddle.prototype.move = function(x, y) {
 function Player() {
     this.paddle = new Paddle(175, 480, 50, 10);
 }
-
 
 Player.prototype.render = function() {
     this.paddle.render();
