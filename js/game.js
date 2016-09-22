@@ -37,7 +37,7 @@ var render = function() {
 };
 
 /*Create Paddle Class*/
-function Paddle(x, y, width, height) {
+function Harold(x, y, width, height) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -46,11 +46,11 @@ function Paddle(x, y, width, height) {
     this.y_speed = 0;
 }
 /*Create Paddle methods that are shared across both players*/
-Paddle.prototype.render = function() {
-    context.drawImage(haroldImg, player.paddle.x, player.paddle.y);
+Harold.prototype.render = function() {
+    context.drawImage(haroldImg, player.harold.x, player.harold.y);
 };
 
-Paddle.prototype.move = function(x, y) {
+Harold.prototype.move = function(x, y) {
     this.x += x; //add x to position
     this.y += y;
     this.x_speed = x; //the speed is the value passed in Player.proto.update
@@ -75,26 +75,26 @@ Paddle.prototype.move = function(x, y) {
 /*Create Paddles player and comp*/
 
 function Player() {
-    this.paddle = new Paddle(175, 480, 50, 10);
+    this.harold = new Harold(175, 480, 50, 10);
 }
 
 Player.prototype.render = function() {
-    this.paddle.render();
+    this.harold.render();
 };
 
 Player.prototype.update = function() {
     for (var key in keysDown) {
         var value = Number(key);
         if (value == 37) { //left arrow key
-            this.paddle.move(-4, 0); //to the left by 4 px
+            this.harold.move(-4, 0); //to the left by 4 px
         } else if (value == 39) { // right arrow
-            this.paddle.move(4, 0); //to the right by 4 px
+            this.harold.move(4, 0); //to the right by 4 px
             } else if (value == 38) { // up
-                this.paddle.move(0, -4);
+                this.harold.move(0, -4);
             } else if (value == 40) {
-               this.paddle.move(0, 4);
+               this.harold.move(0, 4);
         } else {
-            this.paddle.move(0, 0);
+            this.harold.move(0, 0);
         }
     }
 };
