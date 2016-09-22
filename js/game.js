@@ -11,8 +11,11 @@ var height = 550;
 canvas.width = width;
 canvas.height = height;
 var context = canvas.getContext('2d');
-var haroldImg = new Image();
-haroldImg.src = 'img/harold.png';
+var haroldImgRight = new Image();
+haroldImgRight.src = 'img/haroldRight.png';
+var haroldImgLeft = new Image();
+haroldImgLeft.src = 'img/haroldLeft.png';
+
 
 window.onload = function() {
     document.getElementById("canvas").appendChild(canvas);
@@ -36,7 +39,7 @@ var render = function() {
     player.render();
 };
 
-/*Create Paddle Class*/
+/*Create Harold Class*/
 function Harold(x, y, width, height) {
     this.x = x;
     this.y = y;
@@ -44,10 +47,11 @@ function Harold(x, y, width, height) {
     this.height = height;
     this.x_speed = 0;
     this.y_speed = 0;
+    this.img = haroldImgRight;
 }
-/*Create Paddle methods that are shared across both players*/
+/*Create Harold methods that are shared across both players*/
 Harold.prototype.render = function() {
-    context.drawImage(haroldImg, player.harold.x, player.harold.y);
+    context.drawImage(player.harold.img, player.harold.x, player.harold.y);
 };
 
 Harold.prototype.move = function(x, y) {
@@ -72,7 +76,7 @@ Harold.prototype.move = function(x, y) {
     }
 };
 
-/*Create Paddles player and comp*/
+/*Create player*/
 
 function Player() {
     this.harold = new Harold(175, 480, 50, 10);
@@ -86,9 +90,11 @@ Player.prototype.update = function() {
     for (var key in keysDown) {
         var value = Number(key);
         if (value == 37) { //left arrow key
-            this.harold.move(-4, 0); //to the left by 4 px
+            this.harold.move(-4, 0);
+            this.harold.img = haroldImgLeft; //to the left by 4 px
         } else if (value == 39) { // right arrow
-            this.harold.move(4, 0); //to the right by 4 px
+            this.harold.move(4, 0);//to the right by 4 px
+            this.harold.img = haroldImgRight; //flip harold to the face the right
             } else if (value == 38) { // up
                 this.harold.move(0, -4);
             } else if (value == 40) {
