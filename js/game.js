@@ -4,13 +4,15 @@ var animate = window.requestAnimationFrame ||
     function(callback) {
         window.setTimeout(callback, 1000 / 60)
     };
-
+/*Create canvas and 2d context*/
 var canvas = document.createElement('canvas');
 var width = 1000;
 var height = 550;
 canvas.width = width;
 canvas.height = height;
 var context = canvas.getContext('2d');
+
+/*Image loading onto canvas*/
 var haroldImgRight = new Image();
 haroldImgRight.src = 'img/haroldRight.png';
 var haroldImgLeft = new Image();
@@ -30,6 +32,7 @@ var step = function() {
 
 var update = function() {
     player.update();
+    ball.render();
 
 };
 
@@ -37,6 +40,7 @@ var render = function() {
     context.fillStyle = "tan";
     context.fillRect(0, 0, width, height);
     player.render();
+    ball.render();
 };
 
 /*Create Harold Class*/
@@ -60,7 +64,7 @@ Harold.prototype.move = function(x, y) {
     this.x_speed = x; //the speed is the value passed in Player.proto.update
     this.y_speed = y;
 
-/*Boundries*/
+    /*Boundries*/
     if (this.x < 0) { // all the way to the left
         this.x = 0;
         this.x_speed = 0;
@@ -76,8 +80,35 @@ Harold.prototype.move = function(x, y) {
     }
 };
 
-/*Create player*/
+/*Create Ball class for bubbles and food*/
+function Ball(x, y) {
+    this.x = x;
+    this.y = y;
+    this.x_speed = 0;
+    this.y_speed = 3;
+    this.radius = 5;
+}
 
+Ball.prototype.render = function() {
+    /*Put "pen" down on canvas*/
+    context.beginPath();
+    /*Draw an arc starting at the x and y, using the radius, and the angle in radians, Counter Clockwise is false*/
+    context.arc(this.x, this.y, this.radius, 2 * Math.PI, false);
+    context.fillStyle = "#000000";
+    context.fill();
+};
+
+Ball.prototype.update = function() {
+    this.x += this.x_speed;
+    this.y += this.y_speed;
+    var leftSide = this.x - 5; //left side of ball
+    var top_y = this.y - 5; //top of ball
+    var rightSide = this.x + 5; //right side of ball
+    var bottom_y = this.y + 5; //bottom of ball
+};
+
+
+/*Create Player Class*/
 function Player() {
     this.harold = new Harold(175, 480, 50, 10);
 }
@@ -107,6 +138,8 @@ Player.prototype.update = function() {
 
 
 var player = new Player();
+
+var ball = new Ball(200, 300);
 
 var keysDown = {};
 
