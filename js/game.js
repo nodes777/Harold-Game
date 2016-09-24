@@ -35,6 +35,7 @@ var update = function() {
     //ball.update();
     food.update();
     food2.update();
+    healthUpdate();
 
 };
 
@@ -45,9 +46,8 @@ var render = function() {
     //ball.render();
     food.render();
     food2.render();
+    healthRender();
 };
-
-
 
 
 
@@ -60,6 +60,7 @@ function Harold(x, y, width, height) {
     this.x_speed = 0;
     this.y_speed = 0;
     this.img = haroldImgRight;
+    this.health = 100;
 }
 /*Create Harold methods that are shared across both players*/
 Harold.prototype.render = function() {
@@ -142,6 +143,11 @@ Player.prototype.update = function() {
             this.harold.move(0, 0);
         }
     }
+    this.harold.health-=.05;
+    if (this.harold.health<0){
+        this.harold.health=0;
+    }
+    console.log(this.harold.health);
 };
 
 /*Create Food Class*/
@@ -157,7 +163,11 @@ Food.prototype.update = function() {
     this.ball.update();
         if (this.ball.top_y < (player.harold.y + player.harold.height) && this.ball.bottom_y > player.harold.y && this.ball.leftSide < (player.harold.x + player.harold.width) && this.ball.rightSide > player.harold.x) {
             // hit the player
-            console.log("hey");
+             if (player.harold.health+10>100){
+                player.harold.health=100;
+            } else {
+                player.harold.health+=10;
+            }
             this.ball.y_speed = -3;
             this.ball.x_speed += (player.harold.x_speed / 2);
             this.ball.y += this.ball.y_speed;
@@ -171,6 +181,25 @@ var player = new Player();
 var food = new Food(600, 100, 1, "#8B4513");
 var food2 = new Food(400, 50, 2, "#8B4513");
 
+/*Health*/
+var barGraphic = {
+    x: 20,
+    y: 30,
+    width: 300,
+    height: 20
+};
+var maxHealth = 100;
+var percent = player.harold.health/maxHealth;
+    function healthRender(){
+    context.fillStyle = "black";
+    context.fillRect(barGraphic.x, barGraphic.y, barGraphic.width, barGraphic.height);
+
+    context.fillStyle = "red";
+    context.fillRect(barGraphic.x, barGraphic.y, barGraphic.width * percent, barGraphic.height);
+}
+    function healthUpdate(){
+        percent = player.harold.health/maxHealth;
+    }
 
 
 
