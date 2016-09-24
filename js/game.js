@@ -89,12 +89,13 @@ Harold.prototype.move = function(x, y) {
 };
 
 /*Create Ball class for bubbles and food*/
-function Ball(x, y, downSpeed) {
+function Ball(x, y, downSpeed, color) {
     this.x = x;
     this.y = y;
     this.x_speed = 0;
     this.y_speed = downSpeed;
     this.radius = 5;
+    this.color = color;
 }
 
 Ball.prototype.render = function() {
@@ -102,7 +103,7 @@ Ball.prototype.render = function() {
     context.beginPath();
     /*Draw an arc starting at the x and y, using the radius, and the angle in radians, Counter Clockwise is false*/
     context.arc(this.x, this.y, this.radius, 2 * Math.PI, false);
-    context.fillStyle = "#000000";
+    context.fillStyle = this.color;
     context.fill();
 };
 
@@ -144,8 +145,8 @@ Player.prototype.update = function() {
 };
 
 /*Create Food Class*/
-function Food(x,y, downSpeed) {
-    this.ball = new Ball(x, y, downSpeed);
+function Food(x,y, downSpeed, color) {
+    this.ball = new Ball(x, y, downSpeed, color);
 }
 
 Food.prototype.render = function() {
@@ -167,8 +168,8 @@ Food.prototype.update = function() {
 /*Instantiate items on screen*/
 var player = new Player();
 //var ball = new Ball(200, 300);
-var food = new Food(600, 100, 1);
-var food2 = new Food(400, 50, 2);
+var food = new Food(600, 100, 1, "#8B4513");
+var food2 = new Food(400, 50, 2, "#8B4513");
 
 
 
