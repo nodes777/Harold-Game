@@ -32,7 +32,9 @@ var step = function() {
 
 var update = function() {
     player.update();
-    ball.render();
+    //ball.update();
+    food.update();
+    food2.update();
 
 };
 
@@ -40,8 +42,14 @@ var render = function() {
     context.fillStyle = "tan";
     context.fillRect(0, 0, width, height);
     player.render();
-    ball.render();
+    //ball.render();
+    food.render();
+    food2.render();
 };
+
+
+
+
 
 /*Create Harold Class*/
 function Harold(x, y, width, height) {
@@ -81,11 +89,11 @@ Harold.prototype.move = function(x, y) {
 };
 
 /*Create Ball class for bubbles and food*/
-function Ball(x, y) {
+function Ball(x, y, downSpeed) {
     this.x = x;
     this.y = y;
     this.x_speed = 0;
-    this.y_speed = 3;
+    this.y_speed = downSpeed;
     this.radius = 5;
 }
 
@@ -101,12 +109,11 @@ Ball.prototype.render = function() {
 Ball.prototype.update = function() {
     this.x += this.x_speed;
     this.y += this.y_speed;
-    var leftSide = this.x - 5; //left side of ball
-    var top_y = this.y - 5; //top of ball
-    var rightSide = this.x + 5; //right side of ball
-    var bottom_y = this.y + 5; //bottom of ball
+    this.leftSide = this.x - 5; //left side of ball
+    this.top_y = this.y - 5; //top of ball
+    this.rightSide = this.x + 5; //right side of ball
+    this.bottom_y = this.y + 5; //bottom of ball
 };
-
 
 /*Create Player Class*/
 function Player() {
@@ -136,10 +143,40 @@ Player.prototype.update = function() {
     }
 };
 
+/*Create Food Class*/
+function Food(x,y, downSpeed) {
+    this.ball = new Ball(x, y, downSpeed);
+}
 
+Food.prototype.render = function() {
+    this.ball.render();
+};
+
+Food.prototype.update = function() {
+    this.ball.update();
+        if (this.ball.top_y < (player.harold.y + player.harold.height) && this.ball.bottom_y > player.harold.y && this.ball.leftSide < (player.harold.x + player.harold.width) && this.ball.rightSide > player.harold.x) {
+            // hit the player
+            console.log("hey");
+            this.ball.y_speed = -3;
+            this.ball.x_speed += (player.harold.x_speed / 2);
+            this.ball.y += this.ball.y_speed;
+        }
+
+};
+
+/*Instantiate items on screen*/
 var player = new Player();
+//var ball = new Ball(200, 300);
+var food = new Food(600, 100, 1);
+var food2 = new Food(400, 50, 2);
 
-var ball = new Ball(200, 300);
+
+
+
+
+
+
+/*Controls*/
 
 var keysDown = {};
 
@@ -150,40 +187,3 @@ window.addEventListener("keydown", function(event) {
 window.addEventListener("keyup", function(event) {
     delete keysDown[event.keyCode];
 });
-
-
-/*Octo*/
-var octo = {
-
-    getCompScore: function() {
-        return data.game.compScore;
-    },
-    getPlayerScore: function() {
-        return data.game.playerScore;
-    },
-    updateCompScore: function(score) {
-        data.game.compScore = score;
-        view.renderScore();
-    },
-    updatePlayerScore: function(score) {
-        data.game.playerScore = score;
-        view.renderScore();
-
-    }
-};
-
-/*Data*/
-var data = {
-    game: {
-        compScore: 0,
-        playerScore: 0
-    }
-};
-
-/*View*/
-var view = {
-    renderScore: function() {
-        document.getElementById("cScore").innerHTML = octo.getCompScore();
-        document.getElementById("pScore").innerHTML = octo.getPlayerScore();
-    }
-};
