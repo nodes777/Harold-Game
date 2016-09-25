@@ -119,7 +119,7 @@ Ball.prototype.update = function() {
 
 /*Create Player Class*/
 function Player() {
-    this.harold = new Harold(175, 480, 50, 10);
+    this.harold = new Harold(175, 480, 70, 36);
 }
 
 Player.prototype.render = function() {
@@ -147,7 +147,6 @@ Player.prototype.update = function() {
     if (this.harold.health<0){
         this.harold.health=0;
     }
-    console.log(this.harold.health);
 };
 
 /*Create Food Class*/
