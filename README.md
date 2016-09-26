@@ -9,7 +9,10 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 * requestAnimationFrame
 
 ##To-Dos##
-*
+* Create end game
+* Create Bubble Creation
+* Random spawn food
+* Background graphics
 
 ##Bugs##
 *

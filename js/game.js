@@ -35,7 +35,13 @@ var update = function() {
     //ball.update();
     food.update();
     food2.update();
+    for (i = 0; i < foodArr.length; i++) {
+        foodArr[i].update();
+    }
     healthUpdate();
+
+    var timeInMs = Date.now();
+    checkForFood(timeInMs);
 
 };
 
@@ -46,10 +52,14 @@ var render = function() {
     //ball.render();
     food.render();
     food2.render();
+    for (i = 0; i < foodArr.length; i++) {
+        foodArr[i].render();
+    }
     healthRender();
+
 };
 
-
+var foodArr = [];
 
 /*Create Harold Class*/
 function Harold(x, y, width, height) {
@@ -178,7 +188,7 @@ Food.prototype.update = function() {
 var player = new Player();
 //var ball = new Ball(200, 300);
 var food = new Food(600, 100, 1, "#8B4513");
-var food2 = new Food(400, 50, 2, "#8B4513");
+var food2 = new Food(Math.floor((Math.random() * 300) + 50), 100, 1, "#8B4513");
 
 /*Health*/
 var barGraphic = {
@@ -201,7 +211,22 @@ var percent = player.harold.health/maxHealth;
     }
 
 
+/*Spawning food*/
+function spawnFood() {
+    var food3 = new Food(Math.floor((Math.random() * 300) + 50), 100, 1, "#8B4513");
+    foodArr.push(food3);
+}
+var spawnRate = 2000; //every 2 seconds
+var lastSpawn = -1;
 
+function checkForFood(time) {
+
+    if (time > (lastSpawn + spawnRate)) {
+        console.log("checked");
+        lastSpawn = time;
+        spawnFood();
+    }
+}
 
 
 
