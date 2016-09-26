@@ -38,6 +38,9 @@ var update = function() {
     for (i = 0; i < foodArr.length; i++) {
         foodArr[i].update();
     }
+    for (i = 0; i < bubbleArr.length; i++) {
+        bubbleArr[i].update();
+    }
     healthUpdate();
 
     var timeInMs = Date.now();
@@ -55,11 +58,15 @@ var render = function() {
     for (i = 0; i < foodArr.length; i++) {
         foodArr[i].render();
     }
+    for (i = 0; i < bubbleArr.length; i++) {
+        bubbleArr[i].render();
+    }
     healthRender();
 
 };
 
 var foodArr = [];
+var bubbleArr = [];
 
 /*Create Harold Class*/
 function Harold(x, y, width, height) {
@@ -139,6 +146,9 @@ Player.prototype.render = function() {
 Player.prototype.update = function() {
     for (var key in keysDown) {
         var value = Number(key);
+        if( value == 32){
+            this.harold.blowBubble();
+        }
         if (value == 37) { //left arrow key
             this.harold.move(-4, 0);
             this.harold.img = haroldImgLeft; //to the left by 4 px
@@ -213,7 +223,7 @@ var percent = player.harold.health/maxHealth;
 
 /*Spawning food*/
 function spawnFood() {
-    var food3 = new Food(Math.floor((Math.random() * 300) + 50), 100, 1, "#8B4513");
+    var food3 = new Food(Math.floor((Math.random() * 1000) + 50), 100, 1, "#8B4513");
     foodArr.push(food3);
 }
 var spawnRate = 2000; //every 2 seconds
@@ -228,7 +238,23 @@ function checkForFood(time) {
     }
 }
 
+/*Bubble*/
+function Bubble(x,y){
+ this.ball = new Ball(x, y, -1, "#b2b2ff");
+}
 
+Bubble.prototype.render = function() {
+    this.ball.render();
+};
+
+Bubble.prototype.update = function() {
+    this.ball.update();
+};
+
+Harold.prototype.blowBubble = function(){
+    var bubble = new Bubble(this.x, this.y);
+    bubbleArr.push(bubble);
+}
 
 /*Controls*/
 

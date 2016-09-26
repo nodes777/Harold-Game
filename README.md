@@ -11,8 +11,9 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 ##To-Dos##
 * Create end game
 * Create Bubble Creation
-* Random spawn food
 * Background graphics
+* Remove Person or Harold Class, they can be the same thing
+* Add music
 
 ##Bugs##
 *
