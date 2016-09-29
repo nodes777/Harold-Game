@@ -2,21 +2,21 @@ var animate = window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
     function(callback) {
-        window.setTimeout(callback, 1000 / 60)
+        window.setTimeout(callback, 1000 / 60);
     };
 /*Create canvas and 2d context*/
-var canvas = document.createElement('canvas');
+var canvas = document.createElement("canvas");
 var width = 1000;
 var height = 550;
 canvas.width = width;
 canvas.height = height;
-var context = canvas.getContext('2d');
+var context = canvas.getContext("2d");
 
 /*Image loading onto canvas*/
 var haroldImgRight = new Image();
-haroldImgRight.src = 'img/haroldRight.png';
+haroldImgRight.src = "img/haroldRight.png";
 var haroldImgLeft = new Image();
-haroldImgLeft.src = 'img/haroldLeft.png';
+haroldImgLeft.src = "img/haroldLeft.png";
 
 /*Init*/
 window.onload = function() {
@@ -35,7 +35,7 @@ var update = function() {
     //ball.update();
     food.update();
     food2.update();
-    for (i = 0; i < foodArr.length; i++) {
+    for (var i = 0; i < foodArr.length; i++) {
         foodArr[i].update();
     }
     for (i = 0; i < bubbleArr.length; i++) {
@@ -45,7 +45,6 @@ var update = function() {
 
     var timeInMs = Date.now();
     checkForFood(timeInMs);
-
 };
 
 var render = function() {
@@ -55,14 +54,13 @@ var render = function() {
     //ball.render();
     food.render();
     food2.render();
-    for (i = 0; i < foodArr.length; i++) {
+    for (var i = 0; i < foodArr.length; i++) {
         foodArr[i].render();
     }
     for (i = 0; i < bubbleArr.length; i++) {
         bubbleArr[i].render();
     }
     healthRender();
-
 };
 
 var foodArr = [];
@@ -146,29 +144,28 @@ Player.prototype.render = function() {
 Player.prototype.update = function() {
     for (var key in keysDown) {
         var value = Number(key);
-        
         if (value == 37) { //left arrow key
             this.harold.move(-4, 0);
             this.harold.img = haroldImgLeft; //to the left by 4 px
         } else if (value == 39) { // right arrow
-            this.harold.move(4, 0);//to the right by 4 px
+            this.harold.move(4, 0); //to the right by 4 px
             this.harold.img = haroldImgRight; //flip harold to the face the right
-            } else if (value == 38) { // up
-                this.harold.move(0, -4);
-            } else if (value == 40) {
-               this.harold.move(0, 4);
+        } else if (value == 38) { // up
+            this.harold.move(0, -4);
+        } else if (value == 40) {
+            this.harold.move(0, 4);
         } else {
             this.harold.move(0, 0);
         }
     }
-    this.harold.health-=.05;
-    if (this.harold.health<0){
-        this.harold.health=0;
+    this.harold.health -= .05;
+    if (this.harold.health < 0) {
+        this.harold.health = 0;
     }
 };
 
 /*Create Food Class*/
-function Food(x,y, downSpeed, color) {
+function Food(x, y, downSpeed, color) {
     this.ball = new Ball(x, y, downSpeed, color);
 }
 
@@ -178,17 +175,17 @@ Food.prototype.render = function() {
 
 Food.prototype.update = function() {
     this.ball.update();
-        if (this.ball.top_y < (player.harold.y + player.harold.height) && this.ball.bottom_y > player.harold.y && this.ball.leftSide < (player.harold.x + player.harold.width) && this.ball.rightSide > player.harold.x) {
-            // hit the player
-             if (player.harold.health+10>100){
-                player.harold.health=100;
-            } else {
-                player.harold.health+=10;
-            }
-            this.ball.y_speed = -3;
-            this.ball.x_speed += (player.harold.x_speed / 2);
-            this.ball.y += this.ball.y_speed;
+    if (this.ball.top_y < (player.harold.y + player.harold.height) && this.ball.bottom_y > player.harold.y && this.ball.leftSide < (player.harold.x + player.harold.width) && this.ball.rightSide > player.harold.x) {
+        // hit the player
+        if (player.harold.health + 10 > 100) {
+            player.harold.health = 100;
+        } else {
+            player.harold.health += 10;
         }
+        this.ball.y_speed = -3;
+        this.ball.x_speed += (player.harold.x_speed / 2);
+        this.ball.y += this.ball.y_speed;
+    }
 
 };
 
@@ -205,18 +202,21 @@ var barGraphic = {
     width: 300,
     height: 20
 };
+
 var maxHealth = 100;
-var percent = player.harold.health/maxHealth;
-    function healthRender(){
+var percent = player.harold.health / maxHealth;
+
+function healthRender() {
     context.fillStyle = "black";
     context.fillRect(barGraphic.x, barGraphic.y, barGraphic.width, barGraphic.height);
 
     context.fillStyle = "red";
     context.fillRect(barGraphic.x, barGraphic.y, barGraphic.width * percent, barGraphic.height);
 }
-    function healthUpdate(){
-        percent = player.harold.health/maxHealth;
-    }
+
+function healthUpdate() {
+    percent = player.harold.health / maxHealth;
+}
 
 
 /*Spawning food*/
@@ -237,8 +237,8 @@ function checkForFood(time) {
 }
 
 /*Bubble*/
-function Bubble(x,y){
- this.ball = new Ball(x, y, -1, "#b2b2ff");
+function Bubble(x, y) {
+    this.ball = new Ball(x, y, -1, "#b2b2ff");
 }
 
 Bubble.prototype.render = function() {
@@ -249,10 +249,10 @@ Bubble.prototype.update = function() {
     this.ball.update();
 };
 
-Harold.prototype.blowBubble = function(){
+Harold.prototype.blowBubble = function() {
     var bubble = new Bubble(this.x, this.y);
     bubbleArr.push(bubble);
-}
+};
 
 /*Controls*/
 
@@ -263,8 +263,8 @@ window.addEventListener("keydown", function(event) {
 });
 
 window.addEventListener("keyup", function(event) {
-    if(event.keyCode == 32){
-    player.harold.blowBubble();
-   }
+    if (event.keyCode == 32) {
+        player.harold.blowBubble();
+    }
     delete keysDown[event.keyCode];
 });
