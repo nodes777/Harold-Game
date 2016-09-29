@@ -18,7 +18,7 @@ haroldImgRight.src = 'img/haroldRight.png';
 var haroldImgLeft = new Image();
 haroldImgLeft.src = 'img/haroldLeft.png';
 
-
+/*Init*/
 window.onload = function() {
     document.getElementById("canvas").appendChild(canvas);
     animate(step);
@@ -146,9 +146,7 @@ Player.prototype.render = function() {
 Player.prototype.update = function() {
     for (var key in keysDown) {
         var value = Number(key);
-        if( value == 32){
-            this.harold.blowBubble();
-        }
+        
         if (value == 37) { //left arrow key
             this.harold.move(-4, 0);
             this.harold.img = haroldImgLeft; //to the left by 4 px
@@ -265,5 +263,8 @@ window.addEventListener("keydown", function(event) {
 });
 
 window.addEventListener("keyup", function(event) {
+    if(event.keyCode == 32){
+    player.harold.blowBubble();
+   }
     delete keysDown[event.keyCode];
 });
