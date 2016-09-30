@@ -36,7 +36,7 @@ var update = function() {
     food.update();
     food2.update();
     for (var i = 0; i < foodArr.length; i++) {
-        foodArr[i].update();
+        foodArr[i].update(bubbleArr);
     }
     for (i = 0; i < bubbleArr.length; i++) {
         bubbleArr[i].update();
@@ -176,6 +176,7 @@ Food.prototype.render = function() {
 Food.prototype.update = function() {
     this.ball.update();
     if (this.ball.top_y < (player.harold.y + player.harold.height) && this.ball.bottom_y > player.harold.y && this.ball.leftSide < (player.harold.x + player.harold.width) && this.ball.rightSide > player.harold.x) {
+        foodArr.splice(this.spotInArr, 1);//Need to access this food in the array
         // hit the player
         if (player.harold.health + 10 > 100) {
             player.harold.health = 100;
@@ -222,7 +223,8 @@ function healthUpdate() {
 /*Spawning food*/
 function spawnFood() {
     var food3 = new Food(Math.floor((Math.random() * 1000) + 50), 100, 1, "#8B4513");
-    foodArr.push(food3);
+    foodArr.push(food3)
+    food3.spotInArr = foodArr.indexOf(food3);
 }
 var spawnRate = 2000; //every 2 seconds
 var lastSpawn = -1;
@@ -268,3 +270,7 @@ window.addEventListener("keyup", function(event) {
     }
     delete keysDown[event.keyCode];
 });
+
+function checkForCollision(ball) {
+
+}
