@@ -103,33 +103,6 @@ Harold.prototype.blowBubble = function() {
     var bubble = new Bubble(this.x, this.y);
     bubbleArr.push(bubble);
 };
-/*Create Ball class for bubbles and food*/
-function Ball(x, y, downSpeed, color) {
-    this.x = x;
-    this.y = y;
-    this.x_speed = 0;
-    this.y_speed = downSpeed;
-    this.radius = 5;
-    this.color = color;
-}
-
-Ball.prototype.render = function() {
-    /*Put "pen" down on canvas*/
-    context.beginPath();
-    /*Draw an arc starting at the x and y, using the radius, and the angle in radians, Counter Clockwise is false*/
-    context.arc(this.x, this.y, this.radius, 2 * Math.PI, false);
-    context.fillStyle = this.color;
-    context.fill();
-};
-
-Ball.prototype.update = function() {
-    this.x += this.x_speed;
-    this.y += this.y_speed;
-    this.leftSide = this.x - 5; //left side of ball
-    this.top_y = this.y - 5; //top of ball
-    this.rightSide = this.x + 5; //right side of ball
-    this.bottom_y = this.y + 5; //bottom of ball
-};
 
 /*Create Player Class*/
 function Player() {
@@ -162,6 +135,33 @@ Player.prototype.update = function() {
         this.harold.health = 0;
     }
 };
+/*Create Ball class for bubbles and food*/
+function Ball(x, y, downSpeed, color) {
+    this.x = x;
+    this.y = y;
+    this.x_speed = 0;
+    this.y_speed = downSpeed;
+    this.radius = 5;
+    this.color = color;
+}
+
+Ball.prototype.render = function() {
+    /*Put "pen" down on canvas*/
+    context.beginPath();
+    /*Draw an arc starting at the x and y, using the radius, and the angle in radians, Counter Clockwise is false*/
+    context.arc(this.x, this.y, this.radius, 2 * Math.PI, false);
+    context.fillStyle = this.color;
+    context.fill();
+};
+
+Ball.prototype.update = function() {
+    this.x += this.x_speed;
+    this.y += this.y_speed;
+    this.leftSide = this.x - 5; //left side of ball
+    this.top_y = this.y - 5; //top of ball
+    this.rightSide = this.x + 5; //right side of ball
+    this.bottom_y = this.y + 5; //bottom of ball
+};
 
 /*Create Food Class*/
 function Food(x, y, downSpeed, color) {
@@ -176,30 +176,24 @@ Food.prototype.update = function() {
     this.ball.update();
     if(this.ball.top_y > canvas.height){
         foodArr.splice(this.spotInArr, 1);
-        //console.log("removed foodArr:"+this.spotInArr);
+        /*splice removes from the array but the spotInArr is still the same as when food was spawned, so you have to update the foodArr*/
         updateFoodArr();
     }
+    /*hit the player*/
     if (this.ball.top_y < (player.harold.y + player.harold.height) && this.ball.bottom_y > player.harold.y && this.ball.leftSide < (player.harold.x + player.harold.width) && this.ball.rightSide > player.harold.x) {
         foodArr.splice(this.spotInArr, 1);
-        //splice removes from the array but the spotInArr is still the same as when food was spawned
-        //console.log("removed foodArr:"+this.spotInArr);
         updateFoodArr();
-        // hit the player
         if (player.harold.health + 10 > 100) {
             player.harold.health = 100;
         } else {
             player.harold.health += 10;
         }
-        //this.ball.y_speed = -3;
-       // this.ball.x_speed += (player.harold.x_speed / 2);
-        //this.ball.y += this.ball.y_speed;
     }
 
 };
 
 /*Instantiate items on screen*/
 var player = new Player();
-//var ball = new Ball(200, 300);
 
 /*Health*/
 var barGraphic = {
@@ -242,6 +236,12 @@ function checkForFood(time) {
     }
 }
 
+function updateFoodArr() {
+    for (var i = 0; i < foodArr.length; i++) {
+       foodArr[i].spotInArr = foodArr.indexOf(foodArr[i]);
+    }
+}
+
 /*Bubble*/
 function Bubble(x, y) {
     this.ball = new Ball(x, y, -1, "#b2b2ff");
@@ -272,8 +272,3 @@ window.addEventListener("keyup", function(event) {
     delete keysDown[event.keyCode];
 });
 
-function updateFoodArr() {
-    for (var i = 0; i < foodArr.length; i++) {
-       foodArr[i].spotInArr = foodArr.indexOf(foodArr[i]);
-    }
-}
