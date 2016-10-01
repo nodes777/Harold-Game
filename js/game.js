@@ -33,8 +33,6 @@ var step = function() {
 var update = function() {
     player.update();
     //ball.update();
-    food.update();
-    food2.update();
     for (var i = 0; i < foodArr.length; i++) {
         foodArr[i].update(bubbleArr);
     }
@@ -52,8 +50,6 @@ var render = function() {
     context.fillRect(0, 0, width, height);
     player.render();
     //ball.render();
-    food.render();
-    food2.render();
     for (var i = 0; i < foodArr.length; i++) {
         foodArr[i].render();
     }
@@ -103,7 +99,10 @@ Harold.prototype.move = function(x, y) {
         this.y_speed = 0;
     }
 };
-
+Harold.prototype.blowBubble = function() {
+    var bubble = new Bubble(this.x, this.y);
+    bubbleArr.push(bubble);
+};
 /*Create Ball class for bubbles and food*/
 function Ball(x, y, downSpeed, color) {
     this.x = x;
@@ -175,17 +174,25 @@ Food.prototype.render = function() {
 
 Food.prototype.update = function() {
     this.ball.update();
+    if(this.ball.top_y > canvas.height){
+        foodArr.splice(this.spotInArr, 1);
+        //console.log("removed foodArr:"+this.spotInArr);
+        updateFoodArr();
+    }
     if (this.ball.top_y < (player.harold.y + player.harold.height) && this.ball.bottom_y > player.harold.y && this.ball.leftSide < (player.harold.x + player.harold.width) && this.ball.rightSide > player.harold.x) {
-        foodArr.splice(this.spotInArr, 1);//Need to access this food in the array
+        foodArr.splice(this.spotInArr, 1);
+        //splice removes from the array but the spotInArr is still the same as when food was spawned
+        //console.log("removed foodArr:"+this.spotInArr);
+        updateFoodArr();
         // hit the player
         if (player.harold.health + 10 > 100) {
             player.harold.health = 100;
         } else {
             player.harold.health += 10;
         }
-        this.ball.y_speed = -3;
-        this.ball.x_speed += (player.harold.x_speed / 2);
-        this.ball.y += this.ball.y_speed;
+        //this.ball.y_speed = -3;
+       // this.ball.x_speed += (player.harold.x_speed / 2);
+        //this.ball.y += this.ball.y_speed;
     }
 
 };
@@ -193,8 +200,6 @@ Food.prototype.update = function() {
 /*Instantiate items on screen*/
 var player = new Player();
 //var ball = new Ball(200, 300);
-var food = new Food(600, 100, 1, "#8B4513");
-var food2 = new Food(Math.floor((Math.random() * 300) + 50), 100, 1, "#8B4513");
 
 /*Health*/
 var barGraphic = {
@@ -222,17 +227,16 @@ function healthUpdate() {
 
 /*Spawning food*/
 function spawnFood() {
-    var food3 = new Food(Math.floor((Math.random() * 1000) + 50), 100, 1, "#8B4513");
-    foodArr.push(food3)
-    food3.spotInArr = foodArr.indexOf(food3);
+    var food = new Food(Math.floor((Math.random() * 1000) + 50), 100, 1, "#8B4513");
+    foodArr.push(food)
+    food.spotInArr = foodArr.indexOf(food);
+    //console.log(food.spotInArr);
 }
 var spawnRate = 2000; //every 2 seconds
 var lastSpawn = -1;
 
 function checkForFood(time) {
-
     if (time > (lastSpawn + spawnRate)) {
-        console.log("checked");
         lastSpawn = time;
         spawnFood();
     }
@@ -251,10 +255,7 @@ Bubble.prototype.update = function() {
     this.ball.update();
 };
 
-Harold.prototype.blowBubble = function() {
-    var bubble = new Bubble(this.x, this.y);
-    bubbleArr.push(bubble);
-};
+
 
 /*Controls*/
 
@@ -271,6 +272,8 @@ window.addEventListener("keyup", function(event) {
     delete keysDown[event.keyCode];
 });
 
-function checkForCollision(ball) {
-
+function updateFoodArr() {
+    for (var i = 0; i < foodArr.length; i++) {
+       foodArr[i].spotInArr = foodArr.indexOf(foodArr[i]);
+    }
 }

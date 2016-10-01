@@ -13,7 +13,7 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 * Remove Person or Harold Class, they can be the same thing
 * Figure out bubble food hierarchy. Why do I need food.render() and bubble.render(); They should fall back to the same thing
 * Add music
-* Delete food as its touched
+* Remove food when eaten, and when dropped off screen
 
 ##Bugs##
 *
