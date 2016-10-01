@@ -6,10 +6,8 @@ var animate = window.requestAnimationFrame ||
     };
 /*Create canvas and 2d context*/
 var canvas = document.createElement("canvas");
-var width = 1000;
-var height = 550;
-canvas.width = width;
-canvas.height = height;
+canvas.width = 1000;
+canvas.height = 550;
 var context = canvas.getContext("2d");
 
 /*Image loading onto canvas*/
@@ -46,7 +44,7 @@ var update = function() {
 
 var render = function() {
     context.fillStyle = "tan";
-    context.fillRect(0, 0, width, height);
+    context.fillRect(0, 0, canvas.width, canvas.height);
     harold.render();
     for (var i = 0; i < foodArr.length; i++) {
         foodArr[i].render();
@@ -122,7 +120,11 @@ Harold.prototype.move = function(x, y) {
     }
 };
 Harold.prototype.blowBubble = function() {
+    if( this.img == haroldImgRight){
+    var bubble = new Bubble(this.x+this.width, this.y);
+    } else{
     var bubble = new Bubble(this.x, this.y);
+    }
     bubbleArr.push(bubble);
 };
 
@@ -272,7 +274,7 @@ Bubble.prototype.update = function(foodArr) {
                     }
                 }
             }
-    }
+        }
 };
 
 /*Controls*/

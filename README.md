@@ -6,6 +6,7 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 * Canvas
 * Prototypical method of object construction
 * requestAnimationFrame
+* AABB and Circular Collision detection
 
 ##To-Dos##
 * Create end game
@@ -15,4 +16,3 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 * Bubble/food collision?
 
 ##Bugs##
-* Bubbles always come out of left side, even when tail is there.
