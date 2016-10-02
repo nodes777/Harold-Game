@@ -112,8 +112,8 @@ Harold.prototype.move = function(x, y) {
     } else if (this.x + this.width > canvas.width) { // all the way to the right
         this.x = canvas.width - this.width;
         this.x_speed = 0;
-    } else if (this.y < 0) { // all the way to the top
-        this.y = 0;
+    } else if (this.y < 100) { // all the way to the top
+        this.y = 100;
         this.y_speed = 0;
     } else if (this.y + this.height > canvas.height) { // all the way to the bottom
         this.y = canvas.height - this.height;
@@ -140,6 +140,7 @@ function Ball(x, y, downSpeed, color) {
     this.y_speed = downSpeed;
     this.radius = 5;
     this.color = color;
+    this.baseSpeed = this.y_speed;
 }
 
 Ball.prototype.render = function() {
@@ -171,6 +172,12 @@ Food.prototype.render = function() {
 
 Food.prototype.update = function() {
     this.ball.update();
+    var speed = this.ball.y_speed;
+    if(this.ball.y<bubbleLine - 10){
+        this.ball.y_speed = this.ball.y_speed*1.1;
+    } else {
+        this.ball.y_speed = this.ball.baseSpeed;
+    }
     if(this.ball.top_y > canvas.height){
         foodArr.splice(this.spotInArr, 1);
         /*splice removes from the array but the spotInArr is still the same as when food was spawned, so you have to update the foodArr*/
@@ -217,7 +224,7 @@ function healthUpdate() {
 
 /*Spawning food*/
 function spawnFood() {
-    var food = new Food(Math.floor((Math.random() * 1000) + 50), 100, 1, "#8B4513");
+    var food = new Food(Math.floor((Math.random() * 1000) + 50), 0, 1, "#8B4513");
     foodArr.push(food)
     food.spotInArr = foodArr.indexOf(food);
 }
@@ -279,9 +286,19 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
                 }
             }
         }
+        /*Sets wall boundries for bubbles*/
+        if (this.ball.x < 0) { // all the way to the left
+            this.ball.x = 0;
+            this.x_speed = 0;
+        } else if (this.x + this.width > canvas.width) { // all the way to the right
+            this.ball.x = canvas.width - this.width;
+            this.ball.x_speed = 0;
+        }
     /*Check for bubbleLine contact*/
     if(this.ball.y <= bubbleLine){
         this.ball.y_speed = 0;
+    } else {
+
     }
     /*Check for bubble to bubble contact*/
     //var bubbsExceptArr = bubbleArr.slice(this.spotInArr, 1)
@@ -291,17 +308,24 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
                     && this.ball.x < bubbleArr[i].ball.x + this.ball.radius +  bubbleArr[i].ball.radius
                     && this.ball.y + this.ball.radius + bubbleArr[i].ball.radius >  bubbleArr[i].ball.y
                     && this.ball.y < bubbleArr[i].ball.y + this.ball.radius +  bubbleArr[i].ball.radius)
-                    { 
+                    {
                         var distance = Math.sqrt(
                         ((this.ball.x - bubbleArr[i].ball.x) * (this.ball.x - bubbleArr[i].ball.x))
                       + ((this.ball.y -  bubbleArr[i].ball.y) * (this.ball.y - bubbleArr[i].ball.y))
                        );
                         if (distance < this.ball.radius +  bubbleArr[i].ball.radius)
                         {
-                            /*Bubbles collided*/
-                            console.log("bubbles collided");
-                            this.ball.x = this.ball.x+4
-                            bubbleArr[i].ball.x = bubbleArr[i].ball.x-4
+                            if(this.ball.x < bubbleArr[i].ball.x) {
+                                this.ball.x_speed = -2;
+                            }
+                            /*bubble to the right*/
+                            else if (this.ball.x > bubbleArr[i].ball.x){
+                                this.ball.x_speed = 2;
+                            }
+                            /*bubble is straight on*/
+                            else {
+                                this.ball.x = this.ball.x-6;
+                            }
                         }
                     }
                 }
