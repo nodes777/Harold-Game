@@ -34,7 +34,7 @@ var update = function() {
         foodArr[i].update();
     }
     for (i = 0; i < bubbleArr.length; i++) {
-        bubbleArr[i].update(foodArr);
+        bubbleArr[i].update(foodArr, bubbleArr);
     }
     healthUpdate();
 
@@ -57,6 +57,7 @@ var render = function() {
 
 var foodArr = [];
 var bubbleArr = [];
+var bubblesAtTop = [];
 
 /*Create Harold Class*/
 function Harold(x, y, width, height) {
@@ -126,6 +127,7 @@ Harold.prototype.blowBubble = function() {
     var bubble = new Bubble(this.x, this.y);
     }
     bubbleArr.push(bubble);
+    bubble.spotInArr = bubbleArr.indexOf(bubble);
 };
 
 
@@ -244,9 +246,11 @@ Bubble.prototype.render = function() {
     this.ball.render();
 };
 
-Bubble.prototype.update = function(foodArr) {
+Bubble.prototype.update = function(foodArr, bubbleArr) {
     this.ball.update();
+    /*As long as the bubble is not in contact with anything keep its' x movement still*/
     this.ball.x_speed= 0;
+    /*Check for food contact*/
         for (var i = 0; i < foodArr.length; i++) {
             if (this.ball.x + this.ball.radius + foodArr[i].ball.radius > foodArr[i].ball.x
             && this.ball.x < foodArr[i].ball.x + this.ball.radius + foodArr[i].ball.radius
@@ -275,7 +279,37 @@ Bubble.prototype.update = function(foodArr) {
                 }
             }
         }
+    /*Check for bubbleLine contact*/
+    if(this.ball.y <= bubbleLine){
+        this.ball.y_speed = 0;
+    }
+    /*Check for bubble to bubble contact*/
+    //var bubbsExceptArr = bubbleArr.slice(this.spotInArr, 1)
+        for (var i = 0; i < bubbleArr.length; i++) {
+                if(this.spotInArr !== bubbleArr[i].spotInArr){
+                    if (this.ball.x + this.ball.radius + bubbleArr[i].ball.radius >  bubbleArr[i].ball.x
+                    && this.ball.x < bubbleArr[i].ball.x + this.ball.radius +  bubbleArr[i].ball.radius
+                    && this.ball.y + this.ball.radius + bubbleArr[i].ball.radius >  bubbleArr[i].ball.y
+                    && this.ball.y < bubbleArr[i].ball.y + this.ball.radius +  bubbleArr[i].ball.radius)
+                    { 
+                        var distance = Math.sqrt(
+                        ((this.ball.x - bubbleArr[i].ball.x) * (this.ball.x - bubbleArr[i].ball.x))
+                      + ((this.ball.y -  bubbleArr[i].ball.y) * (this.ball.y - bubbleArr[i].ball.y))
+                       );
+                        if (distance < this.ball.radius +  bubbleArr[i].ball.radius)
+                        {
+                            /*Bubbles collided*/
+                            console.log("bubbles collided");
+                            this.ball.x = this.ball.x+4
+                            bubbleArr[i].ball.x = bubbleArr[i].ball.x-4
+                        }
+                    }
+                }
+            }
 };
+
+/*Bubbles at Top*/
+var bubbleLine = 100;
 
 /*Controls*/
 
