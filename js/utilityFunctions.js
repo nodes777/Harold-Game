@@ -39,6 +39,15 @@ function collisionCheck(thisBall, array, i) {
     }
 }
 
+function checkBubblesAtTop(arr){
+    for(var i = 0; i < arr.length; i++){
+        if(arr[i].nest == true && arr[i].counted == false ){
+            nestCount++;
+            arr[i].counted = true;
+        }
+    }
+}
+
 function boundryCheck(obj, canvas) {
     if (obj.x < 0) { // all the way to the left
         obj.x = 0;

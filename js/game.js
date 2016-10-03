@@ -40,7 +40,7 @@ var update = function() {
 
     var timeInMs = Date.now();
     checkForFood(timeInMs);
-    bubbleNestCheck();
+    checkBubblesAtTop(bubbleArr);
 };
 
 var render = function() {
@@ -193,6 +193,7 @@ var harold = new Harold(175, 480, 70, 36);
 function Bubble(x, y) {
     this.ball = new Ball(x, y, -1, "#4c4cdb");
     this.nest = false;
+    this.counted = false;
 }
 
 Bubble.prototype.render = function() {
@@ -237,18 +238,19 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
                 if (this.ball.x < bubbleArr[i].ball.x) {
                     this.ball.x_speed = -2;
                     this.ball.y_speed = bubbleArr[i].ball.y_speed;
-                    this.nest = true;
                 }
                 /*bubble to the right*/
                 else if (this.ball.x > bubbleArr[i].ball.x) {
                     this.ball.x_speed = 2;
                     this.ball.y_speed = bubbleArr[i].ball.y_speed;
-                    this.nest = true;
                 }
                 /*bubble is straight on*/
                 else {
                     this.ball.x = this.ball.x - 6;
                     this.ball.y_speed = bubbleArr[i].ball.y_speed;
+                }
+                /*if the bubble it touches is part of the nest, this bubble becomes a part of the nest*/
+                if (bubbleArr[i].nest == true){
                     this.nest = true;
                 }
            }
@@ -262,17 +264,8 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
 /*Bubbles at Top*/
 var bubbleLine = 100;
 var bubblesAtTop = [];
-function bubbleNestCheck(){
-    for(var i = 0; i<bubbleArr.length;i++){
-        if(bubbleArr[i].nest==true){
-            bubblesAtTop.push(bubbleArr[i]);
-            console.log("check");
-        }
-    }
-    if(bubblesAtTop.length>=10){
-        console.log("win");
-    }
-}
+var nestCount = 0;
+
 /*Controls*/
 
 var keysDown = {};
