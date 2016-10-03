@@ -123,6 +123,7 @@ Harold.prototype.blowBubble = function() {
     }
     bubbleArr.push(bubble);
     bubble.spotInArr = bubbleArr.indexOf(bubble);
+    reduceHealth();
 };
 
 /*Create Ball class for bubbles and food*/
@@ -180,11 +181,7 @@ Food.prototype.update = function() {
     if (this.ball.top_y < (harold.y + harold.height) && this.ball.bottom_y > harold.y && this.ball.leftSide < (harold.x + harold.width) && this.ball.rightSide > harold.x) {
         foodArr.splice(this.spotInArr, 1);
         updateFoodArr();
-        if (harold.health + 10 > 100) {
-            harold.health = 100;
-        } else {
-            harold.health += 10;
-        }
+        increaseHealth();
     }
 
 };
@@ -209,18 +206,18 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
     for (var i = 0; i < foodArr.length; i++) {
         if(collisionCheck(this, foodArr, i)){
             /*food and bubble balls have collided*/
-            /*bubble to the left*/
-            if (this.ball.x < foodArr[i].ball.x) {
-                this.ball.x_speed = -2;
-            }
-            /*bubble to the right*/
-            else if (this.ball.x > foodArr[i].ball.x) {
-                this.ball.x_speed = 2;
-            }
-            /*bubble is straight on*/
-            else {
-                this.ball.x = this.ball.x - 6;
-            }
+                /*bubble to the left*/
+                if (this.ball.x < foodArr[i].ball.x) {
+                    this.ball.x_speed = -2;
+                }
+                /*bubble to the right*/
+                else if (this.ball.x > foodArr[i].ball.x) {
+                    this.ball.x_speed = 2;
+                }
+                /*bubble is straight on*/
+                else {
+                    this.ball.x = this.ball.x - 6;
+                }
         }
     }
     /*Sets wall boundries for bubbles*/
@@ -235,21 +232,21 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
         if (this.spotInArr !== bubbleArr[i].spotInArr) {
            if (collisionCheck(this, bubbleArr, i)) {
             /*bubbles have collided*/
-            /*bubble to the left*/
-            if (this.ball.x < bubbleArr[i].ball.x) {
-                this.ball.x_speed = -2;
-                this.ball.y_speed = bubbleArr[i].ball.y_speed;
-            }
-            /*bubble to the right*/
-            else if (this.ball.x > bubbleArr[i].ball.x) {
-                this.ball.x_speed = 2;
-                this.ball.y_speed = bubbleArr[i].ball.y_speed;
-            }
-            /*bubble is straight on*/
-            else {
-                this.ball.x = this.ball.x - 6;
-                this.ball.y_speed = bubbleArr[i].ball.y_speed;
-            }
+                /*bubble to the left*/
+                if (this.ball.x < bubbleArr[i].ball.x) {
+                    this.ball.x_speed = -2;
+                    this.ball.y_speed = bubbleArr[i].ball.y_speed;
+                }
+                /*bubble to the right*/
+                else if (this.ball.x > bubbleArr[i].ball.x) {
+                    this.ball.x_speed = 2;
+                    this.ball.y_speed = bubbleArr[i].ball.y_speed;
+                }
+                /*bubble is straight on*/
+                else {
+                    this.ball.x = this.ball.x - 6;
+                    this.ball.y_speed = bubbleArr[i].ball.y_speed;
+                }
            }
         }
     }

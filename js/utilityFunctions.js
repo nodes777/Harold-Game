@@ -71,3 +71,18 @@ function healthRender() {
 function healthUpdate() {
     percent = harold.health / maxHealth;
 }
+
+function increaseHealth(){
+    if (harold.health + 10 > 100) {
+            harold.health = 100;
+        } else {
+            harold.health += 10;
+        }
+}
+function reduceHealth(){
+    if (harold.health - 5 < 0) {
+            harold.health = 0;
+        } else {
+            harold.health -= 5;
+        }
+}
