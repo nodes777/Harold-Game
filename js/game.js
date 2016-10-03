@@ -40,6 +40,7 @@ var update = function() {
 
     var timeInMs = Date.now();
     checkForFood(timeInMs);
+    bubbleNestCheck();
 };
 
 var render = function() {
@@ -57,7 +58,6 @@ var render = function() {
 
 var foodArr = [];
 var bubbleArr = [];
-var bubblesAtTop = [];
 
 /*Create Harold Class*/
 function Harold(x, y, width, height) {
@@ -192,6 +192,7 @@ var harold = new Harold(175, 480, 70, 36);
 /*Bubble*/
 function Bubble(x, y) {
     this.ball = new Ball(x, y, -1, "#4c4cdb");
+    this.nest = false;
 }
 
 Bubble.prototype.render = function() {
@@ -236,25 +237,42 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
                 if (this.ball.x < bubbleArr[i].ball.x) {
                     this.ball.x_speed = -2;
                     this.ball.y_speed = bubbleArr[i].ball.y_speed;
+                    this.nest = true;
                 }
                 /*bubble to the right*/
                 else if (this.ball.x > bubbleArr[i].ball.x) {
                     this.ball.x_speed = 2;
                     this.ball.y_speed = bubbleArr[i].ball.y_speed;
+                    this.nest = true;
                 }
                 /*bubble is straight on*/
                 else {
                     this.ball.x = this.ball.x - 6;
                     this.ball.y_speed = bubbleArr[i].ball.y_speed;
+                    this.nest = true;
                 }
            }
         }
+    }
+    if(this.ball.y <= 100){
+        this.nest = true;
     }
 };
 
 /*Bubbles at Top*/
 var bubbleLine = 100;
-
+var bubblesAtTop = [];
+function bubbleNestCheck(){
+    for(var i = 0; i<bubbleArr.length;i++){
+        if(bubbleArr[i].nest==true){
+            bubblesAtTop.push(bubbleArr[i]);
+            console.log("check");
+        }
+    }
+    if(bubblesAtTop.length>=10){
+        console.log("win");
+    }
+}
 /*Controls*/
 
 var keysDown = {};
