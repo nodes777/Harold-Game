@@ -32,19 +32,9 @@ function collisionCheck(thisBall, array, i) {
             ((thisBall.ball.y - array[i].ball.y) * (thisBall.ball.y - array[i].ball.y))
         );
         if (distance < thisBall.ball.radius + array[i].ball.radius) {
-            /*food and bubble balls have collided*/
-            /*bubble to the left*/
-            if (thisBall.ball.x < array[i].ball.x) {
-                thisBall.ball.x_speed = -2;
-            }
-            /*bubble to the right*/
-            else if (thisBall.ball.x > array[i].ball.x) {
-                thisBall.ball.x_speed = 2;
-            }
-            /*bubble is straight on*/
-            else {
-                thisBall.ball.x = thisBall.ball.x - 6;
-            }
+            return true;
+        } else {
+            return false;
         }
     }
 }

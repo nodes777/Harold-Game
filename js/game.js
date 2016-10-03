@@ -207,20 +207,50 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
     this.ball.x_speed = 0;
     /*Check for food contact*/
     for (var i = 0; i < foodArr.length; i++) {
-        collisionCheck(this, foodArr, i);
+        if(collisionCheck(this, foodArr, i)){
+            /*food and bubble balls have collided*/
+            /*bubble to the left*/
+            if (this.ball.x < foodArr[i].ball.x) {
+                this.ball.x_speed = -2;
+            }
+            /*bubble to the right*/
+            else if (this.ball.x > foodArr[i].ball.x) {
+                this.ball.x_speed = 2;
+            }
+            /*bubble is straight on*/
+            else {
+                this.ball.x = this.ball.x - 6;
+            }
+        }
     }
     /*Sets wall boundries for bubbles*/
     boundryCheck(this, canvas);
     /*Check for bubbleLine contact*/
     if (this.ball.y <= bubbleLine) {
         this.ball.y_speed = 0;
-    } else {
-
     }
+
     /*Check for bubble to bubble contact*/
     for (var i = 0; i < bubbleArr.length; i++) {
         if (this.spotInArr !== bubbleArr[i].spotInArr) {
-            collisionCheck(this, bubbleArr, i);
+           if (collisionCheck(this, bubbleArr, i)) {
+            /*bubbles have collided*/
+            /*bubble to the left*/
+            if (this.ball.x < bubbleArr[i].ball.x) {
+                this.ball.x_speed = -2;
+                this.ball.y_speed = bubbleArr[i].ball.y_speed;
+            }
+            /*bubble to the right*/
+            else if (this.ball.x > bubbleArr[i].ball.x) {
+                this.ball.x_speed = 2;
+                this.ball.y_speed = bubbleArr[i].ball.y_speed;
+            }
+            /*bubble is straight on*/
+            else {
+                this.ball.x = this.ball.x - 6;
+                this.ball.y_speed = bubbleArr[i].ball.y_speed;
+            }
+           }
         }
     }
 };
