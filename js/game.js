@@ -15,11 +15,26 @@ var haroldImgRight = new Image();
 haroldImgRight.src = "img/haroldRight.png";
 var haroldImgLeft = new Image();
 haroldImgLeft.src = "img/haroldLeft.png";
+var bg = new Image();
+bg.src = "img/tank.png";
+
+/* set vars*/
+var timeInMs = Date.now();
+/*Bubbles at Top*/
+var bubbleLine = 100;
+var bubblesAtTop = [];
+var nestCount = 0;
+/*Controls*/
+var keysDown = {};
+/*Circle arrays*/
+var foodArr = [];
+var bubbleArr = [];
 
 /*Init*/
-window.onload = function() {
+startGame = function() {
     document.getElementById("canvas").appendChild(canvas);
     animate(step);
+    document.getElementById("startGame").style.display = 'none';
 };
 
 var step = function() {
@@ -38,7 +53,7 @@ var update = function() {
     }
     healthUpdate();
 
-    var timeInMs = Date.now();
+    timeInMs = Date.now();
     checkForFood(timeInMs);
     checkBubblesAtTop(bubbleArr);
 };
@@ -46,6 +61,7 @@ var update = function() {
 var render = function() {
     context.fillStyle = "tan";
     context.fillRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(bg, 0, 0);
     harold.render();
     for (var i = 0; i < foodArr.length; i++) {
         foodArr[i].render();
@@ -55,9 +71,6 @@ var render = function() {
     }
     healthRender();
 };
-
-var foodArr = [];
-var bubbleArr = [];
 
 /*Create Harold Class*/
 function Harold(x, y, width, height) {
@@ -127,7 +140,7 @@ Harold.prototype.blowBubble = function() {
 };
 
 /*Create Ball class for bubbles and food*/
-function Ball(x, y, downSpeed, color) {
+function Ball(x, y, downSpeed, color, strokeColor) {
     this.x = x;
     this.y = y;
     this.x_speed = 0;
@@ -135,6 +148,7 @@ function Ball(x, y, downSpeed, color) {
     this.radius = 5;
     this.color = color;
     this.baseSpeed = this.y_speed;
+    this.strokeColor = strokeColor
 }
 
 Ball.prototype.render = function() {
@@ -144,6 +158,9 @@ Ball.prototype.render = function() {
     context.arc(this.x, this.y, this.radius, 2 * Math.PI, false);
     context.fillStyle = this.color;
     context.fill();
+    context.strokeStyle = this.strokeColor;
+    context.lineWidth = 1;
+    context.stroke();
 };
 
 Ball.prototype.update = function() {
@@ -156,8 +173,8 @@ Ball.prototype.update = function() {
 };
 
 /*Create Food Class*/
-function Food(x, y, downSpeed, color) {
-    this.ball = new Ball(x, y, downSpeed, color);
+function Food(x, y, downSpeed, color, strokeColor) {
+    this.ball = new Ball(x, y, downSpeed, color, strokeColor);
 }
 
 Food.prototype.render = function() {
@@ -191,7 +208,7 @@ var harold = new Harold(175, 480, 70, 36);
 
 /*Bubble*/
 function Bubble(x, y) {
-    this.ball = new Ball(x, y, -1, "#4c4cdb");
+    this.ball = new Ball(x, y, -1, "#ffffff", "#4c4cdb");
     this.nest = false;
     this.counted = false;
 }
@@ -261,14 +278,6 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
     }
 };
 
-/*Bubbles at Top*/
-var bubbleLine = 100;
-var bubblesAtTop = [];
-var nestCount = 0;
-
-/*Controls*/
-
-var keysDown = {};
 
 window.addEventListener("keydown", function(event) {
     keysDown[event.keyCode] = true;

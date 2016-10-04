@@ -1,6 +1,6 @@
 /*Spawning food*/
 function spawnFood() {
-    var food = new Food(Math.floor((Math.random() * 1000) + 50), 0, 1, "#8B4513");
+    var food = new Food(Math.floor((Math.random() * 1000) + 50), 0, 1, "#8B4513", "#8B4513");
     foodArr.push(food)
     food.spotInArr = foodArr.indexOf(food);
 }
@@ -45,6 +45,9 @@ function checkBubblesAtTop(arr){
             nestCount++;
             arr[i].counted = true;
         }
+    }
+    if(nestCount >= 100){
+        console.log("you win!");
     }
 }
 
