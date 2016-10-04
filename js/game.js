@@ -36,7 +36,7 @@ startGame = function() {
     animate(step);
     document.getElementById("startGame").style.display = 'none';
 };
-
+//window.onload = startGame();
 var step = function() {
     update(); //Update positions
     render(); //Draw them on the screen

@@ -1,9 +1,16 @@
-.score {
-	font-family: 'Orbitron', sans-serif;
-	font-weight: 900;
-	font-size: 80px;
+*{
+	font-family: 'Fresca', sans-serif;
 }
-
+h1{
+	font-size: 40px;
+}
+p{
+	font-size: 26px;
+}
 .canvas{
 	margin-top: 50px;
+}
+.icon{
+	max-height:75px;
+	max-width:75px;
 }

@@ -15,15 +15,21 @@
     <link href="css/main.css" rel="stylesheet">
     <!-- Orbitron Font-->
     <link href='https://fonts.googleapis.com/css?family=Orbitron:400,700,900' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Fresca:400,700,900" rel="stylesheet" type='text/css'>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="startGame" id="startGame">
-                    <button onclick="startGame()">Start Game</button>
+        <div class="startGame text-center col-md-6 col-md-offset-3" id="startGame">
+            <h1>Harold is my fish</h1>
+                <p class ="lead">and he lives in his bowl</p>
+                <p>You gotta help Harold build his bubble nest, but be careful, Harold's a hungry guy and blowing bubbles takes up more energy. You gotta watch your consumption habits.</p>
+                <p>Use the arrow keys to move Harold around <img class="icon" src="img/arrowKeys.png"></p>
+                <p>Use the space bar to blow bubbles and build your nest <img class="icon" src="img/spaceBar.png"></p>
+                    <button class="btn-success btn-lg" onclick="startGame()">Start Game</button>
                 </div>
+            <div class="col-md-12">
                 <div id="canvas" class="canvas text-center"></div>
             </div>
     </div>

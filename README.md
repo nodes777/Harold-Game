@@ -21,3 +21,8 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 * Add wikipedia entries for every ten bubbles blown
 
 ##Bugs##
+* Food and Harold fall in front of tank edges, especially at the bottom
+
+##Attributions##
+* Arrow Key Icon - Bruno Landowski - Noun Project
+* Space Bar Icon - Arthur Shlain - Noun Project
