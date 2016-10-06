@@ -36,7 +36,8 @@ startGame = function() {
     animate(step);
     document.getElementById("startGame").style.display = 'none';
 };
-//window.onload = startGame();
+/*Add or remove to get start screen*/
+window.onload = startGame;
 var step = function() {
     update(); //Update positions
     render(); //Draw them on the screen
@@ -70,6 +71,7 @@ var render = function() {
         bubbleArr[i].render();
     }
     healthRender();
+    updateBubbleCounter(nestCount);
 };
 
 /*Create Harold Class*/
@@ -208,7 +210,7 @@ var harold = new Harold(175, 480, 70, 36);
 
 /*Bubble*/
 function Bubble(x, y) {
-    this.ball = new Ball(x, y, -1, "#ffffff", "#4c4cdb");
+    this.ball = new Ball(x, y, -1, "#ADD8E6", "#00004C");
     this.nest = false;
     this.counted = false;
 }
@@ -289,3 +291,28 @@ window.addEventListener("keyup", function(event) {
     }
     delete keysDown[event.keyCode];
 });
+
+/*Data*/
+var data = {
+    game: {
+        nestCount: 0,
+        wonAlready: false
+    }
+};
+/*Octo*/
+var octo = {
+
+    getNestCount: function() {
+        return nestCount;
+    },
+    updateNestCount: function(bubbles) {
+        data.game.nestCount = bubbles;
+        view.renderNestCount();
+    },
+};
+/*View*/
+var view = {
+    renderNestCount: function() {
+        document.getElementById("nestCount").innerHTML = octo.getNestCount();
+    }
+};

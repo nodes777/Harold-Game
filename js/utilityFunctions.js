@@ -1,3 +1,4 @@
+var winAmount = 10;
 /*Spawning food*/
 function spawnFood() {
     var food = new Food(Math.floor((Math.random() * 1000) + 50), 0, 1, "#8B4513", "#8B4513");
@@ -44,11 +45,39 @@ function checkBubblesAtTop(arr){
         if(arr[i].nest == true && arr[i].counted == false ){
             nestCount++;
             arr[i].counted = true;
+            octo.updateNestCount(data.game.nestCount);
         }
     }
-    if(nestCount >= 100){
+    if(nestCount >= winAmount){
         console.log("you win!");
+        displayWin(nestCount);
     }
+}
+
+function updateBubbleCounter(count){
+    context.font="25px Fresca";
+    context.fillStyle = 'black';
+    context.fillText(count,900,50);
+}
+function bubbleToBubble(){
+    if (this.ball.x < bubbleArr[i].ball.x) {
+                    this.ball.x_speed = -2;
+                    this.ball.y_speed = bubbleArr[i].ball.y_speed;
+                }
+                /*bubble to the right*/
+                else if (this.ball.x > bubbleArr[i].ball.x) {
+                    this.ball.x_speed = 2;
+                    this.ball.y_speed = bubbleArr[i].ball.y_speed;
+                }
+                /*bubble is straight on*/
+                else {
+                    this.ball.x = this.ball.x - 6;
+                    this.ball.y_speed = bubbleArr[i].ball.y_speed;
+                }
+                /*if the bubble it touches is part of the nest, this bubble becomes a part of the nest*/
+                if (bubbleArr[i].nest == true){
+                    this.nest = true;
+                }
 }
 
 function boundryCheck(obj, canvas) {
@@ -97,4 +126,14 @@ function reduceHealth(){
         } else {
             harold.health -= 5;
         }
+}
+
+function hide(){
+    document.getElementById("endGame").style.display = 'none';
+}
+function displayWin(count){
+    if(count == winAmount && data.game.wonAlready == false ){
+        document.getElementById("endGame").style.display = 'block';
+        data.game.wonAlready = true;
+    }
 }

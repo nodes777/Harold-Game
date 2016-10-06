@@ -10,6 +10,7 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 
 ##To-Dos##
 * Add WASD controls
+* refactor to  MVC. Data for nestCount, maybe for bubble and food array
 * Create win screen
 * Create bubble counter writing
 * Create end screen if you run out of health
@@ -19,6 +20,7 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 * Figure out bubble food hierarchy. Why do I need food.render() and bubble.render(); They should fall back to the same thing. Well they do different things. The part that they share is ball.update, which includes their movement, is inheirtened. But the parts they don't, like bubbles don't give health, because they have seperate update functions as well.
 * Add music
 * Add wikipedia entries for every ten bubbles blown
+* Make health bar look tolerable
 
 ##Bugs##
 * Food and Harold fall in front of tank edges, especially at the bottom
