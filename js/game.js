@@ -99,7 +99,17 @@ Harold.prototype.update = function() {
             this.move(0, -4);
         } else if (value == 40) {
             this.move(0, 4);
-        } else {
+        } else if (value == 65) { //A key
+            this.move(-4, 0);
+            this.img = haroldImgLeft;
+        } else if (value == 68) { // D key
+            this.move(4, 0);
+            this.img = haroldImgRight;
+        } else if (value == 87) { // W key
+            this.move(0, -4);
+        } else if (value == 83) { //S key
+            this.move(0, 4);
+        }  else {
             this.move(0, 0);
         }
     }
@@ -279,7 +289,6 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
         this.nest = true;
     }
 };
-
 
 window.addEventListener("keydown", function(event) {
     keysDown[event.keyCode] = true;
