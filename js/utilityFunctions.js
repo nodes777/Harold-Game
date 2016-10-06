@@ -137,3 +137,31 @@ function displayWin(count){
         data.game.wonAlready = true;
     }
 }
+function disableMovement(){
+    harold.update = null;
+}
+function doMovement(value){
+    if (value == 37) { //left arrow key
+            this.move(-4, 0);
+            this.img = haroldImgLeft; //to the left by 4 px
+        } else if (value == 39) { // right arrow
+            this.move(4, 0); //to the right by 4 px
+            this.img = haroldImgRight; //flip harold to the face the right
+        } else if (value == 38) { // up
+            this.move(0, -4);
+        } else if (value == 40) {
+            this.move(0, 4);
+        } else if (value == 65) { //A key
+            this.move(-4, 0);
+            this.img = haroldImgLeft;
+        } else if (value == 68) { // D key
+            this.move(4, 0);
+            this.img = haroldImgRight;
+        } else if (value == 87) { // W key
+            this.move(0, -4);
+        } else if (value == 83) { //S key
+            this.move(0, 4);
+        }  else {
+            this.move(0, 0);
+        }
+}
