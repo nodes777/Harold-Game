@@ -57,6 +57,7 @@ var update = function() {
     timeInMs = Date.now();
     checkForFood(timeInMs);
     checkBubblesAtTop(bubbleArr);
+    updateTitle();
 };
 
 var render = function() {

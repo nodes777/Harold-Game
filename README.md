@@ -23,6 +23,7 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 ##Bugs##
 * Food and Harold fall in front of tank edges, especially at the bottom// fix by drawing those last in render chain
 * Pressing both directions on arrow or WASD gives double speed to harold
+* You can lose after you win
 
 ##Attributions##
 * Arrow Key Icon - Bruno Landowski - Noun Project

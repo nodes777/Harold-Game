@@ -55,9 +55,22 @@ function checkBubblesAtTop(arr){
 }
 
 function updateBubbleCounter(count){
-    context.font="25px Fresca";
+    /*context.font="25px Fresca"; //On canvas
     context.fillStyle = 'black';
-    context.fillText(count,900,50);
+    context.fillText(count,900,50);*/
+    document.getElementById("nestCountSide").innerHTML = octo.getNestCount();
+}
+
+function updateTitle(){
+    title = document.getElementById("title")
+    count = octo.getNestCount();
+    if(count >= 10){
+        facts.innerHTML = "Baby Bubble Blower"
+    } else if (count >= 20)  {
+        facts.innerHTML = "Novice Nester"
+    } else if (count >= 20)  {
+        facts.innerHTML = "Blue Bubble Bomber"
+    }
 }
 function bubbleToBubble(){
     if (this.ball.x < bubbleArr[i].ball.x) {
