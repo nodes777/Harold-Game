@@ -4,7 +4,7 @@
 h1{
 	font-size: 40px;
 }
-.startGamep{
+.startGame p{
 	font-size: 26px;
 }
 .top-50{
@@ -36,6 +36,7 @@ h1{
 }
 .stats {
 	font-size:26px;
+	display: none;
 }
 .facts{
 	font-size: 18px;

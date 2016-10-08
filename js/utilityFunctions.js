@@ -2,10 +2,10 @@ var winAmount = 100;
 /*Spawning food*/
 function spawnFood() {
     var food = new Food(Math.floor((Math.random() * 1000) + 50), 0, 1, "#8B4513", "#8B4513");
-    foodArr.push(food)
+    foodArr.push(food);
     food.spotInArr = foodArr.indexOf(food);
 }
-var spawnRate = 2000; //every 2 seconds
+var spawnRate = 1000; //every 1 seconds
 var lastSpawn = -1;
 
 function checkForFood(time) {
@@ -40,74 +40,75 @@ function collisionCheck(thisBall, array, i) {
     }
 }
 
-function checkBubblesAtTop(arr){
-    for(var i = 0; i < arr.length; i++){
-        if(arr[i].nest == true && arr[i].counted == false ){
+function checkBubblesAtTop(arr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].nest === true && arr[i].counted === false) {
             nestCount++;
             arr[i].counted = true;
             octo.updateNestCount(data.game.nestCount);
         }
     }
-    if(nestCount >= winAmount){
+    if (nestCount >= winAmount) {
         console.log("you win!");
         displayWin(nestCount);
     }
 }
 
-function updateBubbleCounter(count){
+function updateBubbleCounter(count) {
     /*context.font="25px Fresca"; //On canvas
     context.fillStyle = 'black';
     context.fillText(count,900,50);*/
     document.getElementById("nestCountSide").innerHTML = octo.getNestCount();
 }
 
-function updateTitle(){
-    title = document.getElementById("title")
-    facts = document.getElementById("facts")
+function updateTitle() {
+    title = document.getElementById("title");
+    facts = document.getElementById("facts");
     count = octo.getNestCount();
-    if(count <= 10){
-        title.innerHTML = "Baby Bubble Blower"
-    } else if (count <= 20)  {
-        title.innerHTML = "Novice Nester"
-    } else if (count <= 30)  {
-        title.innerHTML = "Growing Gourami"
-    } else if (count <= 40)  {
-        title.innerHTML = "Cabable Cluster Creator"
-    } else if (count <= 50)  {
-        title.innerHTML = "Blue Bubble Bomber"
-    } else if (count <= 60)  {
-        title.innerHTML = "Mekong Mound Maker"
-    } else if (count <= 70)  {
-        title.innerHTML = "Adept Aphrophils"
-    } else if (count <= 80)  {
-        title.innerHTML = "Betta Bubble Boss"
-    } else if (count <= 90)  {
-        title.innerHTML = "Splendid Splendens Superhero"
-    } else if (count <= 100)  {
-        title.innerHTML = "Labyrinth Lung Leader"
-    } else if (count <= 110)  {
-        title.innerHTML = "Gourami God"
+    if (count <= 10) {
+        title.innerHTML = "Baby Bubble Blower";
+    } else if (count <= 20) {
+        title.innerHTML = "Novice Nester";
+    } else if (count <= 30) {
+        title.innerHTML = "Growing Gourami";
+    } else if (count <= 40) {
+        title.innerHTML = "Capable Cluster Creator";
+    } else if (count <= 50) {
+        title.innerHTML = "Blue Bubble Bomber";
+    } else if (count <= 60) {
+        title.innerHTML = "Mekong Mound Maker";
+    } else if (count <= 70) {
+        title.innerHTML = "Adept Aphrophils";
+    } else if (count <= 80) {
+        title.innerHTML = "Betta Bubble Boss";
+    } else if (count <= 90) {
+        title.innerHTML = "Splendid Splendens Superhero";
+    } else if (count <= 100) {
+        title.innerHTML = "Labyrinth Lung Leader";
+    } else if (count <= 110) {
+        title.innerHTML = "Gourami God";
     }
 }
-function bubbleToBubble(){
+
+function bubbleToBubble() {
     if (this.ball.x < bubbleArr[i].ball.x) {
-                    this.ball.x_speed = -2;
-                    this.ball.y_speed = bubbleArr[i].ball.y_speed;
-                }
-                /*bubble to the right*/
-                else if (this.ball.x > bubbleArr[i].ball.x) {
-                    this.ball.x_speed = 2;
-                    this.ball.y_speed = bubbleArr[i].ball.y_speed;
-                }
-                /*bubble is straight on*/
-                else {
-                    this.ball.x = this.ball.x - 6;
-                    this.ball.y_speed = bubbleArr[i].ball.y_speed;
-                }
-                /*if the bubble it touches is part of the nest, this bubble becomes a part of the nest*/
-                if (bubbleArr[i].nest == true){
-                    this.nest = true;
-                }
+        this.ball.x_speed = -2;
+        this.ball.y_speed = bubbleArr[i].ball.y_speed;
+    }
+    /*bubble to the right*/
+    else if (this.ball.x > bubbleArr[i].ball.x) {
+        this.ball.x_speed = 2;
+        this.ball.y_speed = bubbleArr[i].ball.y_speed;
+    }
+    /*bubble is straight on*/
+    else {
+        this.ball.x = this.ball.x - 6;
+        this.ball.y_speed = bubbleArr[i].ball.y_speed;
+    }
+    /*if the bubble it touches is part of the nest, this bubble becomes a part of the nest*/
+    if (bubbleArr[i].nest === true) {
+        this.nest = true;
+    }
 }
 
 function boundryCheck(obj, canvas) {
@@ -143,55 +144,59 @@ function healthUpdate() {
     percent = harold.health / maxHealth;
 }
 
-function increaseHealth(){
+function increaseHealth() {
     if (harold.health + 10 > 100) {
-            harold.health = 100;
-        } else {
-            harold.health += 10;
-        }
-}
-function reduceHealth(){
-    if (harold.health - 5 < 0) {
-            harold.health = 0;
-        } else {
-            harold.health -= 5;
-        }
+        harold.health = 100;
+    } else {
+        harold.health += 10;
+    }
 }
 
-function hide(){
+function reduceHealth() {
+    if (harold.health - 5 < 0) {
+        harold.health = 0;
+    } else {
+        harold.health -= 5;
+    }
+}
+
+function hide() {
     document.getElementById("endGame").style.display = 'none';
 }
-function displayWin(count){
-    if(count == winAmount && data.game.wonAlready == false ){
+
+function displayWin(count) {
+    if (count == winAmount && data.game.wonAlready === false) {
         document.getElementById("endGame").style.display = 'block';
         data.game.wonAlready = true;
     }
 }
-function disableMovement(){
+
+function disableMovement() {
     harold.update = null;
 }
-function doMovement(value){
+
+function doMovement(value) {
     if (value == 37) { //left arrow key
-            this.move(-4, 0);
-            this.img = haroldImgLeft; //to the left by 4 px
-        } else if (value == 39) { // right arrow
-            this.move(4, 0); //to the right by 4 px
-            this.img = haroldImgRight; //flip harold to the face the right
-        } else if (value == 38) { // up
-            this.move(0, -4);
-        } else if (value == 40) {
-            this.move(0, 4);
-        } else if (value == 65) { //A key
-            this.move(-4, 0);
-            this.img = haroldImgLeft;
-        } else if (value == 68) { // D key
-            this.move(4, 0);
-            this.img = haroldImgRight;
-        } else if (value == 87) { // W key
-            this.move(0, -4);
-        } else if (value == 83) { //S key
-            this.move(0, 4);
-        }  else {
-            this.move(0, 0);
-        }
+        this.move(-4, 0);
+        this.img = haroldImgLeft; //to the left by 4 px
+    } else if (value == 39) { // right arrow
+        this.move(4, 0); //to the right by 4 px
+        this.img = haroldImgRight; //flip harold to the face the right
+    } else if (value == 38) { // up
+        this.move(0, -4);
+    } else if (value == 40) {
+        this.move(0, 4);
+    } else if (value == 65) { //A key
+        this.move(-4, 0);
+        this.img = haroldImgLeft;
+    } else if (value == 68) { // D key
+        this.move(4, 0);
+        this.img = haroldImgRight;
+    } else if (value == 87) { // W key
+        this.move(0, -4);
+    } else if (value == 83) { //S key
+        this.move(0, 4);
+    } else {
+        this.move(0, 0);
+    }
 }

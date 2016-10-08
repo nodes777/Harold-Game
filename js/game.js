@@ -35,9 +35,10 @@ startGame = function() {
     document.getElementById("canvas").appendChild(canvas);
     animate(step);
     document.getElementById("startGame").style.display = 'none';
+    document.getElementById("stats").style.display = 'block';
 };
 /*Add or remove to get start screen*/
-window.onload = startGame;
+//window.onload = startGame;
 var step = function() {
     update(); //Update positions
     render(); //Draw them on the screen
@@ -110,15 +111,15 @@ Harold.prototype.update = function() {
             this.move(0, -4);
         } else if (value == 83) { //S key
             this.move(0, 4);
-        }  else {
+        } else {
             this.move(0, 0);
         }
     }
     this.health -= .05;
-    if (this.health < 0 ) {
+    if (this.health < 0) {
         this.health = 0;
-        if(data.game.wonAlready == false){
-            this.move = function(){
+        if (data.game.wonAlready === false) {
+            this.move = function() {
                 //Blah do nothing here, just replaces harold.update with an empty func so you can't move him
             };
             document.getElementById("lostGame").style.display = 'block';
@@ -142,8 +143,8 @@ Harold.prototype.move = function(x, y) {
     if (this.y < 100) { // all the way to the top
         this.y = 100;
         this.y_speed = 0;
-    } else if (this.y + this.height > canvas.height-8) { // all the way to the bottom
-        this.y = canvas.height - this.height-8;
+    } else if (this.y + this.height > canvas.height - 8) { // all the way to the bottom
+        this.y = canvas.height - this.height - 8;
         this.y_speed = 0;
     }
 };
@@ -167,7 +168,7 @@ function Ball(x, y, downSpeed, color, strokeColor) {
     this.radius = 5;
     this.color = color;
     this.baseSpeed = this.y_speed;
-    this.strokeColor = strokeColor
+    this.strokeColor = strokeColor;
 }
 
 Ball.prototype.render = function() {
@@ -242,20 +243,20 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
     this.ball.x_speed = 0;
     /*Check for food contact*/
     for (var i = 0; i < foodArr.length; i++) {
-        if(collisionCheck(this, foodArr, i)){
+        if (collisionCheck(this, foodArr, i)) {
             /*food and bubble balls have collided*/
-                /*bubble to the left*/
-                if (this.ball.x < foodArr[i].ball.x) {
-                    this.ball.x_speed = -2;
-                }
-                /*bubble to the right*/
-                else if (this.ball.x > foodArr[i].ball.x) {
-                    this.ball.x_speed = 2;
-                }
-                /*bubble is straight on*/
-                else {
-                    this.ball.x = this.ball.x - 6;
-                }
+            /*bubble to the left*/
+            if (this.ball.x < foodArr[i].ball.x) {
+                this.ball.x_speed = -2;
+            }
+            /*bubble to the right*/
+            else if (this.ball.x > foodArr[i].ball.x) {
+                this.ball.x_speed = 2;
+            }
+            /*bubble is straight on*/
+            else {
+                this.ball.x = this.ball.x - 6;
+            }
         }
     }
     /*Sets wall boundries for bubbles*/
@@ -268,8 +269,8 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
     /*Check for bubble to bubble contact*/
     for (var i = 0; i < bubbleArr.length; i++) {
         if (this.spotInArr !== bubbleArr[i].spotInArr) {
-           if (collisionCheck(this, bubbleArr, i)) {
-            /*bubbles have collided*/
+            if (collisionCheck(this, bubbleArr, i)) {
+                /*bubbles have collided*/
                 /*bubble to the left*/
                 if (this.ball.x < bubbleArr[i].ball.x) {
                     this.ball.x_speed = -2;
@@ -286,25 +287,25 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
                     this.ball.y_speed = bubbleArr[i].ball.y_speed;
                 }
                 /*if the bubble it touches is part of the nest, this bubble becomes a part of the nest*/
-                if (bubbleArr[i].nest == true){
+                if (bubbleArr[i].nest === true) {
                     this.nest = true;
                 }
-           }
+            }
         }
     }
     /*nested at top of tank in bubbleLine*/
-    if(this.ball.y <= 100){
+    if (this.ball.y <= 100) {
         this.nest = true;
     }
     /* bubble hits the player*/
-     if (this.ball.top_y < (harold.y + harold.height) && this.ball.bottom_y > harold.y && this.ball.leftSide < (harold.x + harold.width) && this.ball.rightSide > harold.x) {
-        if (this.ball.x < harold.x+harold.width/2) {
-                    this.ball.x_speed = -1;
-                }
-                /*bubble to the right*/
-                else if (this.ball.x > harold.x+harold.width/2) {
-                    this.ball.x_speed = 1;
-                }
+    if (this.ball.top_y < (harold.y + harold.height) && this.ball.bottom_y > harold.y && this.ball.leftSide < (harold.x + harold.width) && this.ball.rightSide > harold.x) {
+        if (this.ball.x < harold.x + harold.width / 2) {
+            this.ball.x_speed = -1;
+        }
+        /*bubble to the right*/
+        else if (this.ball.x > harold.x + harold.width / 2) {
+            this.ball.x_speed = 1;
+        }
     }
 };
 
