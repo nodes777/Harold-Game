@@ -63,13 +63,15 @@ function updateBubbleCounter(count){
 
 function updateTitle(){
     title = document.getElementById("title")
+    facts = document.getElementById("facts")
     count = octo.getNestCount();
-    if(count >= 10){
-        facts.innerHTML = "Baby Bubble Blower"
+    if(count >= 0){
+        title.innerHTML = "Baby Bubble Blower"
+    } else if (count >= 10)  {
+        title.innerHTML = "Novice Nester"
+        facts.innerHtml = octo.getFacts(1);
     } else if (count >= 20)  {
-        facts.innerHTML = "Novice Nester"
-    } else if (count >= 20)  {
-        facts.innerHTML = "Blue Bubble Bomber"
+        title.innerHTML = "Blue Bubble Bomber"
     }
 }
 function bubbleToBubble(){

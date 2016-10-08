@@ -9,9 +9,8 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 * AABB and Circular Collision detection
 
 ##To-Dos##
-* refactor to  MVC. Data for nestCount, maybe for bubble and food array
+* refactor to  MVC? Data for nestCount, maybe for bubble and food array
 * Create bubble counter writing
-* Create end screen if you run out of health
 * Create rank on number of bubbles made like cat clicker
 * Harold collision with bubbles?
 * Background graphics
@@ -23,7 +22,6 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 ##Bugs##
 * Food and Harold fall in front of tank edges, especially at the bottom// fix by drawing those last in render chain
 * Pressing both directions on arrow or WASD gives double speed to harold
-* You can lose after you win
 
 ##Attributions##
 * Arrow Key Icon - Bruno Landowski - Noun Project

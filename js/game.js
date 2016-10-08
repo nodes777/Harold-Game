@@ -115,12 +115,14 @@ Harold.prototype.update = function() {
         }
     }
     this.health -= .05;
-    if (this.health < 0) {
+    if (this.health < 0 ) {
         this.health = 0;
-        this.move = function(){
-            //Blah do nothing here, just replaces harold.update with an empty func so you can't move him
-        };
-        document.getElementById("lostGame").style.display = 'block';
+        if(data.game.wonAlready == false){
+            this.move = function(){
+                //Blah do nothing here, just replaces harold.update with an empty func so you can't move him
+            };
+            document.getElementById("lostGame").style.display = 'block';
+        }
     }
 };
 
