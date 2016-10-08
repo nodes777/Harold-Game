@@ -1,4 +1,4 @@
-var winAmount = 10;
+var winAmount = 100;
 /*Spawning food*/
 function spawnFood() {
     var food = new Food(Math.floor((Math.random() * 1000) + 50), 0, 1, "#8B4513", "#8B4513");
@@ -65,13 +65,28 @@ function updateTitle(){
     title = document.getElementById("title")
     facts = document.getElementById("facts")
     count = octo.getNestCount();
-    if(count >= 0){
+    if(count <= 10){
         title.innerHTML = "Baby Bubble Blower"
-    } else if (count >= 10)  {
+    } else if (count <= 20)  {
         title.innerHTML = "Novice Nester"
-        facts.innerHtml = octo.getFacts(1);
-    } else if (count >= 20)  {
+    } else if (count <= 30)  {
+        title.innerHTML = "Growing Gourami"
+    } else if (count <= 40)  {
+        title.innerHTML = "Cabable Cluster Creator"
+    } else if (count <= 50)  {
         title.innerHTML = "Blue Bubble Bomber"
+    } else if (count <= 60)  {
+        title.innerHTML = "Mekong Mound Maker"
+    } else if (count <= 70)  {
+        title.innerHTML = "Adept Aphrophils"
+    } else if (count <= 80)  {
+        title.innerHTML = "Betta Bubble Boss"
+    } else if (count <= 90)  {
+        title.innerHTML = "Splendid Splendens Superhero"
+    } else if (count <= 100)  {
+        title.innerHTML = "Labyrinth Lung Leader"
+    } else if (count <= 110)  {
+        title.innerHTML = "Gourami God"
     }
 }
 function bubbleToBubble(){

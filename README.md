@@ -10,7 +10,6 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 
 ##To-Dos##
 * refactor to  MVC? Data for nestCount, maybe for bubble and food array
-* Create bubble counter writing
 * Create rank on number of bubbles made like cat clicker
 * Harold collision with bubbles?
 * Background graphics
