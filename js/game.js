@@ -142,8 +142,8 @@ Harold.prototype.move = function(x, y) {
     if (this.y < 100) { // all the way to the top
         this.y = 100;
         this.y_speed = 0;
-    } else if (this.y + this.height > canvas.height) { // all the way to the bottom
-        this.y = canvas.height - this.height;
+    } else if (this.y + this.height > canvas.height-8) { // all the way to the bottom
+        this.y = canvas.height - this.height-8;
         this.y_speed = 0;
     }
 };
@@ -292,8 +292,19 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
            }
         }
     }
+    /*nested at top of tank in bubbleLine*/
     if(this.ball.y <= 100){
         this.nest = true;
+    }
+    /* bubble hits the player*/
+     if (this.ball.top_y < (harold.y + harold.height) && this.ball.bottom_y > harold.y && this.ball.leftSide < (harold.x + harold.width) && this.ball.rightSide > harold.x) {
+        if (this.ball.x < harold.x+harold.width/2) {
+                    this.ball.x_speed = -1;
+                }
+                /*bubble to the right*/
+                else if (this.ball.x > harold.x+harold.width/2) {
+                    this.ball.x_speed = 1;
+                }
     }
 };
 
