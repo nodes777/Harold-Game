@@ -140,6 +140,7 @@ Harold.prototype.update = function() {
                 //Blah do nothing here, just replaces harold.update with an empty func so you can't move him
             };
             document.getElementById("lostGame").style.display = 'block';
+            document.getElementById("rank").innerHTML = title.innerHTML;
         }
     }
 };
