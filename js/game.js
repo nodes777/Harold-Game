@@ -18,6 +18,22 @@ haroldImgLeft.src = "img/haroldLeft.png";
 var bg = new Image();
 bg.src = "img/tank.png";
 
+/*Audio set up*/
+var song = new Audio('audio/haroldsong.mp3');
+
+function playSong() {
+    song.play();
+}
+
+function toggleSong() {
+    if(song.paused){
+        song.play();
+        document.activeElement.blur()
+    } else {
+        song.pause();
+        document.activeElement.blur()
+    }
+}
 /* set vars*/
 var timeInMs = Date.now();
 /*Bubbles at Top*/
@@ -36,6 +52,7 @@ startGame = function() {
     animate(step);
     document.getElementById("startGame").style.display = 'none';
     document.getElementById("stats").style.display = 'block';
+    playSong();
 };
 /*Add or remove to get start screen*/
 //window.onload = startGame;
