@@ -50,7 +50,10 @@ var arrFacts = [];
 function populateFacts(fullFacts){
     arrFacts = fullFacts.split(".");
     console.log(arrFacts[0]);
-    //document.getElementById('facts').innerHTML = arrFacts[0];
+    for(var i =0; i<11; i++){
+        factArray[i] = arrFacts[i]
+    }
+    document.getElementById('facts').innerHTML = arrFacts[0];
 }
 
 console.log(arrFacts);

@@ -7,13 +7,13 @@ Harold is my fish and he [lives in his bowl](https://taylornodell.bandcamp.com/t
 * Prototypical method of object construction
 * requestAnimationFrame
 * AABB and Circular Collision detection
+* HTML5 Audio
+* Wikipedia API ajax call
 
 ##To-Dos##
 * refactor to  MVC? Data for nestCount, maybe for bubble and food array
 * Background graphics
 * Figure out bubble food hierarchy. Why do I need food.render() and bubble.render(); They should fall back to the same thing. Well they do different things. The part that they share is ball.update, which includes their movement, is inheirtened. But the parts they don't, like bubbles don't give health, because they have seperate update functions as well.
-* Add music
-* Add wikipedia entries for every ten bubbles blown
 * Make health bar look tolerable
 
 ##Bugs##
