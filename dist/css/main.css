@@ -1,0 +1,43 @@
+*{
+	font-family: 'Fresca', sans-serif;
+}
+h1{
+	font-size: 40px;
+}
+.startGame p{
+	font-size: 26px;
+}
+.top-50{
+	margin-top: 50px;
+}
+.icon{
+	max-height:75px;
+	max-width:75px;
+}
+.endGame{
+	position: absolute;
+	z-index: 2;
+	background-color: white;
+	padding: 10px;
+	border-radius: 5px;
+	margin-top: 200px;
+	box-shadow: 2px 2px 2px black;
+	display: none;
+}
+.lostGame{
+	position: absolute;
+	z-index: 2;
+	background-color: white;
+	padding: 10px;
+	border-radius: 5px;
+	margin-top: 200px;
+	box-shadow: 2px 2px 2px black;
+	display: none;
+}
+.stats {
+	font-size:26px;
+	display: none;
+}
+.facts{
+	font-size: 18px;
+}

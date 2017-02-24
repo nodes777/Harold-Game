@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Harold Game">
+    <meta name="author" content="Taylor Nodell">
+    <!--<link rel="icon" href="./favicon.ico">-->
+    <title>Harold The Fish</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <!-- Fresca Font-->
+    <link href="https://fonts.googleapis.com/css?family=Fresca:400,700,900" rel="stylesheet" type='text/css'>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="startGame text-center col-md-6 col-md-offset-3" id="startGame">
+                <h1>Harold is my fish</h1>
+                <p class="lead">and he lives in his bowl</p>
+                <p>You gotta help Harold build his bubble nest, but be careful, Harold's a hungry guy and blowing bubbles takes up more energy. You gotta watch your consumption habits.</p>
+                <p>Blow 100 bubbles to win!</p>
+                <p>Use the arrow keys to move Harold around <img class="icon" src="img/arrowKeys.png"></p>
+                <p>Use the space bar to blow bubbles and build your nest <img class="icon" src="img/spacebar.png"></p>
+                <button class="btn-success btn-lg" onclick="startGame()">Start Game</button>
+            </div>
+            <div class="col-md-12">
+                <div class="endGame text-center col-md-6 col-md-offset-2" id="endGame">
+                    <h1>Congrats You Win!</h1>
+                    <p class="lead">You helped Harold build his nest with <span id="nestCount"></span> bubbles!</p>
+                    <button class="btn-success btn-lg" onclick="hide()">Hide</button>
+                </div>
+                <div class="lostGame text-center col-md-6 col-md-offset-2" id="lostGame">
+                    <h1>Oh No You Lost!</h1>
+                    <p> You lost with a rank of <span id="rank"></span></p>
+                    <p class="lead">You let Harold run out of health! Try to keep him healthy by having him eat food</p>
+                    <button class="btn-success btn-lg" onclick="location.reload()">Retry</button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="canvas" class="top-50 col-md-10 text-center"></div>
+                <div id="stats" class="top-50 col-md-2 text-center stats">
+                    <p>Bubbles In Nest <span id="nestCountSide"></span></p>
+                    <p id="title"></p>
+                    <p id="facts" class="facts"></p>
+                    <button type="button" class="btn btn-sm btn-info" onclick="toggleSong()">Music</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="all.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+    </script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-33228424-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+</html>

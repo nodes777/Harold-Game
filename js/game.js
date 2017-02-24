@@ -132,7 +132,7 @@ Harold.prototype.update = function() {
             this.move(0, 0);
         }
     }
-    this.health -= .05;
+    this.health -= 0.05;
     if (this.health < 0) {
         this.health = 0;
         if (data.game.wonAlready === false) {
@@ -328,6 +328,11 @@ Bubble.prototype.update = function(foodArr, bubbleArr) {
 };
 
 window.addEventListener("keydown", function(event) {
+    //prevent scrolling with arrow keys
+    if (event.keyCode===32||37||38||39||40){
+        event.preventDefault();
+    }
+
     keysDown[event.keyCode] = true;
 });
 
